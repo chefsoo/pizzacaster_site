@@ -22,13 +22,64 @@
       font-size: 1.5em;
       margin: 20px 0;
     }
+    .countdown {
+      font-size: 2em;
+      font-weight: bold;
+      color: #e84393;
+      margin: 30px 0;
+    }
+    .countdown span {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    .countdown .label {
+      font-size: 0.4em;
+      display: block;
+      color: #888;
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>
   <h1>Happy Birthday!</h1>
   <img src="nickydonuts.jpeg" alt="Birthday photo">
   <p>Wishing you an amazing day 🎉</p>
+
+  <div class="countdown" id="countdown">
+    <span><span id="days">--</span><span class="label">days</span></span>
+    <span><span id="hours">--</span><span class="label">hours</span></span>
+    <span><span id="minutes">--</span><span class="label">minutes</span></span>
+    <span><span id="seconds">--</span><span class="label">seconds</span></span>
+  </div>
+
   <p class="tagline">you've tried the rest...now try the best!</p>
   <img src="pizzacaster.webp" alt="Pizzacaster">
+
+  <script>
+    const birthday = new Date("2026-05-17T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = birthday - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 It's your birthday! 🎉";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
